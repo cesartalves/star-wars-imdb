@@ -73,3 +73,16 @@ votes:
 ### SPWA?
 
     - Could use react or vue to load votes / movies on the fly
+
+## Command CheatSheet (for self-reference)
+
+gem 'devise'
+rails generate devise:install
+
+config/environments/development.rb:
+
+config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+rails generate devise MODEL
+
+rails g devise User
