@@ -1,7 +1,4 @@
 <div class="container">
-    <p class="alert alert-success">
-        Você tem <%= @remaining_votes %> voto(s) restante(s)!
-    </p>
     <table class="table table-hover table-bordered">
         <thead>
             <tr>
@@ -9,6 +6,7 @@
                 <td>Diretor</td>
                 <td>Episódio</td>
                 <td>Ano de lançamento</td>
+                <td>Ranking</td>
             </tr>
         </thead>
         <tbody>
@@ -18,7 +16,7 @@
                 <td><%= movie["director"] %></td>
                 <td><%= movie["episode_id"] %></td>
                 <td><%= movie["release_date"] %></td>
-                <td>Upvote | Downvote </td>
+                <td><%= movie["ranking"] %></td>
             </tr> 
             <% end %>
         </tbody>

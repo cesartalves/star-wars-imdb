@@ -7,4 +7,10 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
- user = User.create!  :email => 'john@gmail.com', :password => 'topsecret', :password_confirmation => 'topsecret'
+user = User.create!  :email => 'john@gmail.com', :password => 'topsecret', :password_confirmation => 'topsecret'
+
+movie = Movie.create(id: 1)
+
+Vote.create(:user => user, :movie => movie, :vote_type => 'upvote')
+
+
