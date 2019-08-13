@@ -86,3 +86,5 @@ config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 rails generate devise MODEL
 
 rails g devise User
+
+docker run -e POSTGRES_PASSWORD=123456 -p 5432:5432 postgres

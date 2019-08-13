@@ -6,8 +6,13 @@ class MoviesController < ApplicationController
     before_action :authenticate_user!
 
     def index
-        
         @movies = get_movies_from_api["results"]
+
+        @movies.sort_by! { |movie| movie["episode_id"]}
+ 
+        @movies.each do |movie|
+
+        end
     end
 
     def ranking

@@ -10,6 +10,7 @@ gem 'sqlite3'
 
 gem 'pg'
 gem 'devise'
+gem 'twitter-bootstrap-rails'
 
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
