@@ -24,7 +24,7 @@ Vote - foregin_key: user_id, movie_id,
 6. Report (movies ranked by vote/downvote)
      type: like, dislike
 
-Could do: Vote.sum where (movie.id & like) - Vote.sum where(movie.id & dislike)
+Could do: Vote.count where (movie.id & like) - Vote.count where(movie.id & dislike)
 
 7. Nos dois primeiros filmes mais votados, disponibilizar um link para visualizar os dados completos dos filmes (usar a API de detalhes). Informações a mais: atores, planetas, etc. 
 
@@ -62,9 +62,6 @@ votes:
     success if user voted less than UserVotePolicy
     failure if user voted more than UserVotePolicy
 
-
-#### User
-
 #### Deploy
 
 - Mailer production
@@ -74,7 +71,7 @@ votes:
 
     - Could use react or vue to load votes / movies on the fly
 
-## Command CheatSheet (for self-reference)
+## Command CheatSheet (for self-reference & copy/paste)
 
 gem 'devise'
 rails generate devise:install
@@ -83,7 +80,7 @@ config/environments/development.rb:
 
 config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
-rails generate devise MODEL
+rails generate devise MODELNAME
 
 rails g devise User
 

@@ -1,7 +1,18 @@
 <div class="container">
     <p class="alert alert-success">
         Você tem <%= @remaining_votes %> voto(s) restante(s)!
+       
     </p>
+     <% if !@user_can_vote %>
+        <p class="alert alert-warning">
+            Você já usou todos seus votos.
+        </p>
+    <% end %>
+     <% if flash[:notice] %>
+        <div class="alert alert-success" role="alert">
+            <%= flash[:notice] %>
+        </div>
+    <% end %>
     <table class="table table-hover table-bordered">
         <thead>
             <tr>
@@ -9,6 +20,7 @@
                 <td>Diretor</td>
                 <td>Episódio</td>
                 <td>Ano de lançamento</td>
+                <td>Seu voto</td>
             </tr>
         </thead>
         <tbody>
@@ -17,8 +29,33 @@
                 <td><%= movie["title"] %></td>
                 <td><%= movie["director"] %></td>
                 <td><%= movie["episode_id"] %></td>
-                <td><%= movie["release_date"] %></td>
-                <td>Upvote | Downvote </td>
+                <td><%= movie["release_date"].to_date.year %></td>
+                <td>
+                    <%= button_to "vote", { 
+                        params: {
+                            vote_type: "upvote", 
+                            movie_id: movie["episode_id"], 
+                        },
+                        controller:"votes",
+                        disabled: movie["canvote?"] || !@user_can_vote,
+                        class: "btn-success btn btn-sm",
+                        form_class: "aformclass"
+                        } do %>
+                        <img src="<%= image_url("heart-white-40px.png") %>" alt="" width="20px" height="20px">
+                    <% end %>
+                    <%= button_to "vote", { 
+                        params: {
+                            vote_type: "downvote", 
+                            movie_id: movie["episode_id"], 
+                        },
+                        controller:"votes",
+                        disabled: movie["canvote?"] || !@user_can_vote,
+                        class: "btn-danger btn btn-sm",
+                        form_class: "aformclass"
+                        } do %>
+                        <img src="<%= image_url("heart-white-broken-40px.png") %>" alt="" width="20px" height="20px">
+                    <% end %>
+                </td>
             </tr> 
             <% end %>
         </tbody>

@@ -1,0 +1,33 @@
+<div class="container">
+    <h1><%= @movie["title"] %></h1>
+
+    <div>
+        <p>Diretor: <%= @movie["director"] %></p>
+        <p>Lançamento: <%= @movie["release_date"] %></p>
+        <p>Sinopse: 
+            <%= @movie["opening_crawl"] %>
+        </p> 
+
+        <p>Personagens: 
+        <ul>
+            <% @movie["character_details"].each do |character| %>
+                <p>
+                    <%= character["name"] %>
+                </p>
+            <% end %>
+        </ul>
+        </p>
+
+        <p>Planetas: 
+        <ul>
+            <% @movie["planet_details"].each do |planet| %>
+                <p>
+                    <%= planet["name"] %>
+                </p>
+            <% end %>
+        </ul>
+        </p>
+
+    </div> 
+            
+</div>

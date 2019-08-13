@@ -10,7 +10,7 @@
   </head>
 
   <body>
-   <%= nav_bar brand: "Tray-Star Wars-IMDB", brand_link: root_url, class: "" do %>
+   <%= nav_bar brand: "Tray-Star Wars-IMDB", brand_link: root_url, responsive: true do %>
       <%= menu_group do %>
         <%= menu_item "Lista de filmes",  movies_index_path %>
         <%= menu_item "Ranking", movies_ranking_path %>
@@ -27,8 +27,7 @@
         <% end %>
       </p>
     <% end # nav_bar %>
-
-    <p class="notice"><%= notice %></p>
+    
     <p class="alert"><%= alert %></p>
     <%= yield %>
   </body>
