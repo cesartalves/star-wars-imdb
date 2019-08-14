@@ -30,8 +30,8 @@ class MoviesFacade
     private_class_method :get_movies_from_api
 
     def self.get_movie_ranking(movie)
-        Vote.where(:vote_type => 'upvote', :movie_id => movie['episode_id']).count -
-        Vote.where(:vote_type => 'downvote', :movie_id => movie['episode_id']).count
+        Vote.where(:vote_type => VotePolicies::UPVOTE, :movie_id => movie['episode_id']).count -
+        Vote.where(:vote_type => VotePolicies::DOWNVOTE, :movie_id => movie['episode_id']).count
     end
 
     def self.movie(id)

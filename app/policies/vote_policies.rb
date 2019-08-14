@@ -1,6 +1,9 @@
 class VotePolicies
 
+    DOWNVOTE = "downvote".freeze
+    UPVOTE = "upvote".freeze
+
     def self.valid_type?(vote_type)
-        vote_type == "downvote" || vote_type == "upvote"
+        vote_type == DOWNVOTE || vote_type == UPVOTE
     end
 end
