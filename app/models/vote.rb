@@ -6,6 +6,6 @@ class Vote < ApplicationRecord
     validates :vote_type, presence: true, if: :vote_type_valid?
 
     def vote_type_valid?
-        vote_type == "downvote" || vote_type == "upvote"
+       VotePolicies.valid_type? vote_type
     end
 end

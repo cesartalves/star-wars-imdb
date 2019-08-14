@@ -1,18 +1,21 @@
 <div class="container">
+      <% if flash[:notice] %>
+        <div class="alert alert-success" role="alert">
+            <%= flash[:notice] %>
+        </div>
+        <hr>
+    <% end %>
+
     <p class="alert alert-success">
         Você tem <%= @remaining_votes %> voto(s) restante(s)!
        
     </p>
-     <% if !@user_can_vote %>
+     <% if @remaining_votes <= 0 %>
         <p class="alert alert-warning">
             Você já usou todos seus votos.
         </p>
     <% end %>
-     <% if flash[:notice] %>
-        <div class="alert alert-success" role="alert">
-            <%= flash[:notice] %>
-        </div>
-    <% end %>
+   
     <table class="table table-hover table-bordered">
         <thead>
             <tr>
@@ -37,7 +40,7 @@
                             movie_id: movie["episode_id"], 
                         },
                         controller:"votes",
-                        disabled: movie["canvote?"] || !@user_can_vote,
+                        disabled: !user_can_vote?(movie),
                         class: "btn-success btn btn-sm",
                         form_class: "aformclass"
                         } do %>
@@ -49,7 +52,7 @@
                             movie_id: movie["episode_id"], 
                         },
                         controller:"votes",
-                        disabled: movie["canvote?"] || !@user_can_vote,
+                        disabled: !user_can_vote?(movie),
                         class: "btn-danger btn btn-sm",
                         form_class: "aformclass"
                         } do %>
