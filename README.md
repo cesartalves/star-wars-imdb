@@ -2,9 +2,6 @@
 
 ## Done
 
-
-## To-Do
-
 ### Data Modeling
 
 Requisitos:
@@ -52,6 +49,18 @@ movies.report
 
 navbar: todos os filmes / ranking / Usuário
 
+
+### Deploy
+
+- Mailer production
+- Configure Heroku
+
+## To-Do
+
+### Devise / User configuration
+
+- Customize views
+
 ### Tests
 
 films: 
@@ -62,28 +71,10 @@ votes:
     success if user voted less than UserVotePolicy
     failure if user voted more than UserVotePolicy
 
-#### Deploy
-
-- Mailer production
-- Configure Heroku
+### CI/CD
 
 ### SPWA?
 
     - Could use react or vue to load votes / movies on the fly
 
-## Command CheatSheet (for self-reference & copy/paste)
 
-gem 'devise'
-rails generate devise:install
-
-config/environments/development.rb:
-
-config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
-
-rails generate devise MODELNAME
-
-rails g devise User
-
-docker run -e POSTGRES_PASSWORD=123456 -p 5432:5432 postgres
-
-ActiveSupport::Dependencies.autoload_paths
