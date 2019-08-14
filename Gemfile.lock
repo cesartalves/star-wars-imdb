@@ -82,6 +82,8 @@ GEM
       railties (>= 4.1.0, < 6.0)
       responders
       warden (~> 1.2.3)
+    devise-i18n (1.8.1)
+      devise (>= 4.6)
     duktape (2.3.0.0)
     erubi (1.8.0)
     execjs (2.7.0)
@@ -225,7 +227,9 @@ DEPENDENCIES
   chromedriver-helper
   coffee-rails (~> 4.2)
   devise
+  devise-i18n
   duktape
+  i18n
   jbuilder (~> 2.5)
   pg
   puma (~> 3.11)

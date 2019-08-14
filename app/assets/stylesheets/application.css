@@ -13,3 +13,42 @@
  *= require_tree .
  *= require_self
  */
+
+ .card {
+     border: solid #f7f7f9;
+     padding: 20px;
+     border-radius: 10px;
+     background-color: #428bca;
+     color: white
+ }
+
+ .card-header {
+  
+    
+
+ }
+
+ .card-header h2 {
+   
+ }
+
+ .card a {
+     color: white;
+ }
+
+ .aformclass {
+    width: 20px;
+ }
+
+.align-center {
+    float:none; 
+    margin:auto;
+}
+
+ /* .navbar {
+    background-color: #5bc0de;
+ }
+
+.navbar-default .navbar-brand {
+    color: white;
+ } */
