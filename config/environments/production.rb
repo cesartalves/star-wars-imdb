@@ -95,6 +95,7 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
+    :host => 'tray-imdb.herokuapp.com',
     :authentication => :plain,
     :address => "smtp.mailgun.org",
     :port => 587,
