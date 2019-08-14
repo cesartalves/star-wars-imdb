@@ -1,4 +1,6 @@
-# README
+# Star Wars Movie Rating APi
+
+[![Build Status](https://travis-ci.org/cesartalves/star-wars-imdb.svg?branch=master)](https://travis-ci.org/cesartalves/star-wars-imdb)
 
 ## Done
 
