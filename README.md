@@ -17,12 +17,13 @@ It allows logged users to vote on their favorite movies (two votes per user) and
 
 - Data Modeling
 - Devise / User configuration
-- Routes: get /movies, get /ranking, post /vote
+- Routes: get /movies, get /ranking, post /vote, get /ranking/details
 
 ## To-Do
 
 - Customize views further
 - Translate some of the devise error messages 
+- Translate date lançamento on details
 
 ### Tests
 
@@ -49,10 +50,11 @@ It allows logged users to vote on their favorite movies (two votes per user) and
 
 - TBD
 
-### Possible improvements:
+## Possible improvements:
 
 - add resilience to failure on calls to API
 - Could use Single Page Application (react or vue) to load votes / movies using ajax
 - add code coverage with code-climate
+- use rspec
 
 
