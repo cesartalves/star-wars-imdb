@@ -14,6 +14,7 @@ gem 'i18n'
 gem 'devise-i18n'
 gem 'rails-i18n'
 gem 'rspec-rails', :group => [:development, :test]
+gem 'simplecov', require: false, group: :test
 
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
