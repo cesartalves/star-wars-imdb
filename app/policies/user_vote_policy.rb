@@ -5,7 +5,7 @@ class UserVotePolicy
     end
 
     def remaining_votes(user)
-        @votes_per_user - Vote.where(:user_id => user.id).count
+        @votes_per_user - Vote.where(user: user).count
     end
 
     def has_votes_left?(user)

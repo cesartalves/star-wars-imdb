@@ -12,16 +12,22 @@ env:
   global:
     - RACK_ENV=test
     - RAILS_ENV=test
+    - secure: "V6T/24ddaHgfDqHMZjfz9FtNmhPR6RJVJcdVdVl3xTL0Qlbg8NDQMVqMcdZt9BFx+Z8/KYo3j8sDRFzl3NGJdo+lYUGnntBW8QKfF1i64uuxAGVmvI5prBuZc78T+FFpUt5Mdy29whT9/RvGQ8+wvCjPi7nsY+mhmpcjJ+92tLg1T3BrEZZOaKZOLI5Hg7cIScSkzoK0SQ0BffjUIh0PlMrR0ijSVl+M/tmB97tdrvkXywyzUqRNRhfJRvq5UZfNseP3lGvy7oeShVqu/574BhzxcYij3U2HJl7oY26NUBuz+1AhcdMZ6pgoTv4OEfJJENb9KkE/DNlKMJTob5c0joNB/IqB0yvCtB4H8+VjU6+bcOiEKKsjZAic1Oo8woLuPnD5bcHldRXMwxWBSNpUxkwvvBp+7ygt6LrFPLahWZWgdG9XKLDTSG1mjlnsnxv54tiT+iMEkVAfCQyPUjTT5ZFOHDyd9zjKB+A3+0DncGZotQtKnpN6QT1smBVjKOSEvoTi2Xd8IhjOW/+VKKcyF9sGY6lFlZUF7hGsarS5eFQslpn66hROZ2Ek6FRyfrsM3RvZ0Cr9cLCAWvRv4fcJ88CcJ543PaZVOS/j0fYXLgiw9vpD6K33KEtDfbfBJKI+RCDUlibPes0RCZ+k7P0rWog8qX4LDfGzAHSr02H2zx0="
   
 script:
   - bundle install --jobs=3 --retry=3
   - RAILS_ENV=test bundle exec rake db:schema:load --trace
   - bundle exec rake db:test:prepare
-  - bundle exec rake test
+  - bundle exec rspec
+  
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
   
 before_script:
     - cp config/database.travis.yml config/database.yml
-  
+    - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+    - chmod +x ./cc-test-reporter
+    - ./cc-test-reporter before-build
 deploy:
   provider: heroku
   app: tray-imdb

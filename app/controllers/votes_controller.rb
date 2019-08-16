@@ -4,10 +4,16 @@ class VotesController < ApplicationController
 
     rescue_from ActionController::InvalidAuthenticityToken, with: :handle_csrf_error
 
+    def initialize
+        super
+        @user_vote_policy = UserVotePolicy.new
+    end
+
     def vote
         movie_id = params[:movie_id]
         vote_type = params[:vote_type]
       
+        
         if compute_vote(movie_id, vote_type)
             flash[:notice] = "Voto computado!"
         else
@@ -23,6 +29,6 @@ class VotesController < ApplicationController
     end
 
     def compute_vote(movie_id, vote_type)
-        VotingService.new.compute_vote movie_id, vote_type, current_user
+        VotingService.new(@user_vote_policy).compute_vote movie_id, vote_type, current_user
     end
 end
