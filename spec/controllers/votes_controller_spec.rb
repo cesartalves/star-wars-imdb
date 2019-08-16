@@ -31,8 +31,10 @@ RSpec.describe VotesController, type: :controller do
 
             user = User.create(email: 'someuser@ema.com', password: 'topsecret')
 
+            movie = Movie.create(id: 1)
+
             sign_in user
-            Vote.create!(user: user, movie_id: 1, vote_type: "upvote")
+            Vote.create!(user: user, movie: movie, vote_type: "upvote")
 
             post :vote,  :params => { :movie_id => 1, :vote_type => "upvote" }
             expect(response).to redirect_to(:root)
