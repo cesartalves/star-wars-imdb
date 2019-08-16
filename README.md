@@ -1,82 +1,60 @@
-# Star Wars Movie Rating APi
+# Star Wars Movie Rating
 
-[![Build Status](https://travis-ci.org/cesartalves/star-wars-imdb.svg?branch=master)](https://travis-ci.org/cesartalves/star-wars-imdb)
+[![Build Status](https://travis-ci.org/cesartalves/star-wars-imdb.svg?branch=master)](https://travis-ci.org/cesartalves/star-wars-imdb) [![Maintainability](https://api.codeclimate.com/v1/badges/969571e33b4e32f76f2b/maintainability)](https://codeclimate.com/github/cesartalves/star-wars-imdb/maintainability)
+
+## Description
+
+This simply Ruby on Rails application consumes data from the Star Wars API (https://swapi.co/api/films?format=json).
+It allows logged users to vote on their favorite movies (two votes per user) and see the ranking of most/least liked.
+
+-   Bootstrap 4.0
+-   i18n/i18n_devise
+-   CI/CD Setup with travis CI
+-   Maintainability grade setup with Codeclimate
+
 
 ## Done
 
-### Data Modeling
-
-Requisitos:
-
-Models:
-
-User
-Movie - primary_key: id
-    data which will come from api: Nome do filme, episódio, diretor e o ano do filme.
-Vote - foregin_key: user_id, movie_id,
-   
-
-
-4. Crie uma opção na listagem/tela conforme acima para que o usuário logado possa votar no filme desejado (like/dislike por filme)
-
-5. Each user can only vote twice: Vote.count user_id < UserVotePolicy (canvote?)
-6. Report (movies ranked by vote/downvote)
-     type: like, dislike
-
-Could do: Vote.count where (movie.id & like) - Vote.count where(movie.id & dislike)
-
-7. Nos dois primeiros filmes mais votados, disponibilizar um link para visualizar os dados completos dos filmes (usar a API de detalhes). Informações a mais: atores, planetas, etc. 
-
-### Devise / User configuration
-
-- Create user models
-
-### Routes:
-
-get films: 
-    shows all filmes from the list with number of votes
-    shows two highest voted movies for visualization of (this could probably be shared by films and report routes)
-
-get report:
-    filmes ranked by vote
-
-resource: user
-post vote: id of the filme and type (like | dislike)
-report:
-
-### Templates:
-
-movies.index
-movies.report
-
-navbar: todos os filmes / ranking / Usuário
-
-
-### Deploy
-
-- Mailer production
-- Configure Heroku
+- Data Modeling
+- Devise / User configuration
+- Routes: get /movies, get /ranking, post /vote, get /ranking/details
 
 ## To-Do
 
-### Devise / User configuration
-
-- Customize views
+- Customize views further
+- Translate some of the devise error messages 
+- Translate date lançamento on details
 
 ### Tests
 
-films: 
-    404 if user not logged
-    200 if user logged
+#### Unit
 
-votes:
-    success if user voted less than UserVotePolicy
-    failure if user voted more than UserVotePolicy
+##### Movie:
+    
+##### Vote:
+- field validations
 
-### CI/CD
+##### User?
 
-### SPWA?
+#### Routes:
+- /movies: 404(3) if user not logged
+- /movies: 200 if user logged
+- /ranking: same as above
+- /vote: same as above
+- /vote: success if user voted less than UserVotePolicy
+- /vote: failure if user voted more than UserVotePolicy
+- /vote: failure if user already voted on movie
+- /vote: success if they still didn't
 
-    - Could use react or vue to load votes / movies on the fly
+#### Integration / Controllers:
+
+- TBD
+
+## Possible improvements:
+
+- add resilience to failure on calls to API
+- Could use Single Page Application (react or vue) to load votes / movies using ajax
+- add code coverage with code-climate
+- use rspec
 
 
