@@ -1,6 +1,6 @@
 # Star Wars Movie Rating
 
-[![Build Status](https://travis-ci.org/cesartalves/star-wars-imdb.svg?branch=master)](https://travis-ci.org/cesartalves/star-wars-imdb) [![Maintainability](https://api.codeclimate.com/v1/badges/969571e33b4e32f76f2b/maintainability)](https://codeclimate.com/github/cesartalves/star-wars-imdb/maintainability)
+[![Build Status](https://travis-ci.org/cesartalves/star-wars-imdb.svg?branch=master)](https://travis-ci.org/cesartalves/star-wars-imdb) [![Maintainability](https://api.codeclimate.com/v1/badges/969571e33b4e32f76f2b/maintainability)](https://codeclimate.com/github/cesartalves/star-wars-imdb/maintainability)[![Test Coverage](https://api.codeclimate.com/v1/badges/969571e33b4e32f76f2b/test_coverage)](https://codeclimate.com/github/cesartalves/star-wars-imdb/test_coverage)
 
 ## Description
 
