@@ -27,5 +27,6 @@ It allows logged users to vote on their favorite movies (two votes per user) and
 
 ## Possible improvements:
 
+- ranking/any_invalid_id raises error (500)
 - add resilience to failure on calls to API
 - Could use Single Page Application (react or vue) to load votes / movies using ajax
