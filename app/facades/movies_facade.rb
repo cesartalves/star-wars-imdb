@@ -21,10 +21,7 @@ class MoviesFacade
     end
 
     def get_movies_from_api
-        movies_api_uri = URI 'https://swapi.co/api/films/?format=json'
-
-        response = Net::HTTP.get(movies_api_uri)
-        movies = JSON.parse(response)['results']
+        json_to_hash('https://swapi.co/api/films/?format=json')["results"]
     end
 
 
@@ -33,35 +30,40 @@ class MoviesFacade
         Vote.where(:vote_type => VotePolicies::DOWNVOTE, :movie_id => movie['episode_id']).count
     end
 
-    def movie(id)
-        response = Net::HTTP.get(URI "https://swapi.co/api/films/#{id.to_i}/?format=json")
-        JSON.parse(response)
+    def movie(episode_id)
+
+        api_id = map_to_api episode_id
+
+        json_to_hash("https://swapi.co/api/films/#{api_id}/?format=json")
     end
 
-    def characters(movie)
-        character_details = []
+    def map_to_api(episode_id)
 
-        movie["characters"].each do |detail_api_link|
-            character_details.push(json_to_hash(detail_api_link))
-        end
-
-        return character_details
+        { 
+            "4" => 1 , 
+            "5" => 2 , 
+            "6" => 3 , 
+            "1" => 4 , 
+            "2" => 5 , 
+            "3" => 6 , 
+            "7" => 7
+        } [episode_id]
     end
 
-    def planets(movie)
-        planet_details = []
-        movie["planets"].each do |detail_api_link|
-            planet_details.push(json_to_hash(detail_api_link))
-        end
+    def characters(movie); get_from movie, "characters"; end
+    def planets(movie); get_from movie, "planets"; end
 
-        return planet_details
+    def get_from(movie, hash_name)
+        array = []
+        movie[hash_name].each do |detail_api_link|
+            array.push(json_to_hash(detail_api_link))
+        end
+        return array
     end
 
     def json_to_hash(url)
         response = Net::HTTP.get(URI url)
         JSON.parse(response)
     end
-
-    # private_class_method :json_to_hash
 
 end

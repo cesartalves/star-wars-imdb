@@ -3,6 +3,8 @@ class MoviesController < ApplicationController
 
     before_action :authenticate_user!
 
+    attr_accessor :movies_facade
+
     def initialize
         super
         @user_vote_policy = UserVotePolicy.new
@@ -22,9 +24,9 @@ class MoviesController < ApplicationController
     end   
 
     def details
-        id = params[:id]
+        episode_id = params[:episode]
 
-        @movie = @movies_facade.movie id
+        @movie = @movies_facade.movie episode_id
 
         @movie["character_details"] = @movies_facade.characters @movie
         @movie["planet_details"] = @movies_facade.planets @movie
