@@ -29,4 +29,5 @@ It allows logged users to vote on their favorite movies (two votes per user) and
 
 - ranking/any_invalid_id raises error (500)
 - add resilience to failure on calls to API
+- add controller test with mock service. Here's reference on accomplishing it: https://content.pivotal.io/blog/object-oriented-rails-writing-better-controllers
 - Could use Single Page Application (react or vue) to load votes / movies using ajax
