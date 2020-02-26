@@ -4,7 +4,7 @@
 
 ## Description
 
-This simply Ruby on Rails application consumes data from the Star Wars API (https://swapi.co/api/films?format=json).
+This simple Ruby on Rails application consumes data from the Star Wars API (https://swapi.co/api/films?format=json).
 It allows logged users to vote on their favorite movies (two votes per user) and see the ranking of most/least liked.
 
 -   Bootstrap 4.0
