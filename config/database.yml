@@ -5,13 +5,13 @@
 #   gem 'sqlite3'
 #
 default: &default
-  url: postgresql://postgres:123456@192.168.99.100/testdatabase?pool=5
   adapter: postgresql
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
 development:
   <<: *default
+  url: postgresql://postgres:123456@192.168.99.100/testdatabase?pool=5
   database: db/development.sqlite3
 
 # Warning: The database defined as "test" will be erased and
@@ -19,6 +19,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
+  adapter: sqlite3
   database: db/test.sqlite3
 
 production:
