@@ -1,5 +1,6 @@
 require 'net/http'
 require 'json'
+require 'open-uri'
 
 class MoviesFacade
 
@@ -21,7 +22,7 @@ class MoviesFacade
     end
 
     def self.get_movies_from_api
-        movies_api_uri = URI 'https://swapi.co/api/films/?format=json'
+        movies_api_uri = URI 'https://swapi.dev/api/films/?format=json'
 
         response = Net::HTTP.get(movies_api_uri)
         movies = JSON.parse(response)['results']
@@ -35,7 +36,7 @@ class MoviesFacade
     end
 
     def self.movie(id)
-        response = Net::HTTP.get(URI "https://swapi.co/api/films/#{id.to_i}/?format=json")
+        response = Net::HTTP.get(URI "https://swapi.dev/api/films/#{id.to_i}/?format=json")
         JSON.parse(response)
     end
 
@@ -59,7 +60,7 @@ class MoviesFacade
     end
 
     def self.json_to_hash(url)
-        response = Net::HTTP.get(URI url)
+        response = open(url).read
         JSON.parse(response)
     end
 
