@@ -4,13 +4,13 @@ require 'open-uri'
 
 class MoviesFacade
 
-    def self.movies(sorting_field='episode_id')
+    def movies(sorting_field='episode_id')
         movies = get_movies_from_api
 
         movies.sort_by { |movie| movie[sorting_field] }
     end
 
-    def self.movies_ranked
+    def movies_ranked
 
         movies = get_movies_from_api
 
@@ -21,49 +21,50 @@ class MoviesFacade
         movies.sort_by { |movie| movie['ranking']} .reverse #according to benchmarks this is the fastest way
     end
 
-    def self.get_movies_from_api
-        movies_api_uri = URI 'https://swapi.dev/api/films/?format=json'
-
-        response = Net::HTTP.get(movies_api_uri)
-        movies = JSON.parse(response)['results']
+    def get_movies_from_api
+        json_to_hash('https://swapi.dev/api/films/?format=json')["results"]
     end
 
-    private_class_method :get_movies_from_api
 
-    def self.get_movie_ranking(movie)
-        Vote.where(:vote_type => 'upvote', :movie_id => movie['episode_id']).count -
-        Vote.where(:vote_type => 'downvote', :movie_id => movie['episode_id']).count
+    def get_movie_ranking(movie)
+        Vote.where(:vote_type => VotePolicies::UPVOTE, :movie_id => movie['episode_id']).count -
+        Vote.where(:vote_type => VotePolicies::DOWNVOTE, :movie_id => movie['episode_id']).count
     end
 
-    def self.movie(id)
-        response = Net::HTTP.get(URI "https://swapi.dev/api/films/#{id.to_i}/?format=json")
-        JSON.parse(response)
+    def movie(episode_id)
+
+        api_id = map_to_api episode_id
+
+        json_to_hash("https://swapi.dev/api/films/#{api_id}/?format=json")
     end
 
-    def self.characters(movie)
-        character_details = []
+    def map_to_api(episode_id)
 
-        movie["characters"].each do |detail_api_link|
-            character_details.push(json_to_hash(detail_api_link))
+        {
+            "4" => 1 ,
+            "5" => 2 ,
+            "6" => 3 ,
+            "1" => 4 ,
+            "2" => 5 ,
+            "3" => 6 ,
+            "7" => 7
+        } [episode_id]
+    end
+
+    def characters(movie); get_from movie, "characters"; end
+    def planets(movie); get_from movie, "planets"; end
+
+    def get_from(movie, hash_name)
+        array = []
+        movie[hash_name].each do |detail_api_link|
+            array.push(json_to_hash(detail_api_link))
         end
-
-        return character_details
+        return array
     end
 
-    def self.planets(movie)
-        planet_details = []
-        movie["planets"].each do |detail_api_link|
-            planet_details.push(json_to_hash(detail_api_link))
-        end
-
-        return planet_details
-    end
-
-    def self.json_to_hash(url)
+    def json_to_hash(url)
         response = open(url).read
         JSON.parse(response)
     end
-
-    private_class_method :json_to_hash
 
 end

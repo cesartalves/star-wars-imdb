@@ -8,9 +8,14 @@ gem 'rails', '~> 5.2.3'
 gem 'pg'
 gem 'devise'
 gem 'twitter-bootstrap-rails'
+gem 'i18n'
+gem 'devise-i18n'
+gem 'rails-i18n'
+gem 'rspec-rails', :group => [:development, :test]
+gem 'simplecov', require: false, group: :test
 
 # Use Puma as the app server
-gem 'puma', '~> 3.11'
+gem 'puma', '~> 3.12'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -54,8 +59,12 @@ group :test do
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
-  gem 'chromedriver-helper'
+  gem 'chromedriver-helper', '1.2.0' #put version cause of windows problem.
+  #see https://stackoverflow.com/questions/52630480/rails-seleniumwebdrivererrorwebdrivererror-not-executable-chromedriver
+  gem 'rails-controller-testing' # access to render_template
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+

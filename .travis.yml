@@ -1,0 +1,31 @@
+language: ruby
+cache: bundler
+rvm:
+- 2.4.5
+before_install:
+- gem update --system
+- gem install bundler
+env:
+  global:
+  - RACK_ENV=test
+  - RAILS_ENV=test
+  - secure: tYU79a4m8HpmRbGxrvWhRG/oGkpV46WnE5DoMlcI3umEe589wM8oatszFI56XDAmXi/R9KiVpFct1kSu1bgZYjV7zhL3vUWXTy6hmz26WGVYNnJmze1MeFh4dPKcI9D/dtWtjpBbJB3q/r3MgJceDkG3D2/RngdtpKGhYzWMCLVZCkUrxjftEDS14ZOzFYDDgXKYmUhO7IXGSU0jSQ6rLVhJlp4XhvJhXTj/2YM67TTV5RJ1k4s/Wv2wNzHclDLIFHaubQ/36SCOa5r1ipcyoTIPbZHvC+uMTmYVOG5/WLV8+JzLnsGO3ppaOLzjycEuw7euFlHhT9/QBeL2dB2xDyrMQfwhUGPG/4DIWrljXGiugRe+CYT0zPwGkW/EBp3yM0tDLDUN68Jp0Uyd/pI5kjsFwtBbbu3jw+z7roayHb3hf0hrzy8Y5y1KdQnzlN0hgrAOz+dzCuWB6EREX0JGj3MR1CeamFlCqIFd5ulDxFa7FZM4i9dYiZVrznIX7k4HzE8hIMR5hJ53DZRluZjD7kvnWS1EqoRHUQlg5LeVOOM7gOcu4BpxeHVz8rL/auPHpf9Pxf3VXovESPYSGaxBBoF2+jTqu65ecPLRzKzgkJjt1o40QleLflTKyLuWsNsFCRL6BzqYTCME4sSgu6Bz8ZCZZIaCuUac0iWCUSy+5kU=
+  - secure: QfZreCcg90V6G7ZUl3AP+R6ULrywJUJ4YojPlIaEXfBxFlp0Zsn23MWlQPxAtRhxAeB7eu1xy+sfPJbf7J9baeo4y34ZomhhFBdAZrNWwb6FVxFxS22ObOmY00L8VI4c9boM5ZN1GgDqsxQl6azqHfPmhWaEba8UgLuuXMYrImbrv4hfjDfm6fTMf/k89KxdbsiBO5pD+yJiSruu0kpVQtD/nI/lfTDPFfPaJirPIO8l4Q5bNI+Rnf+AZiSABJ0oJkRoaZCwaXhTHEOkULpwuFuBJByo2Qi0Z+U8UyWjVcL3Ugu6NvwL2qmGIKOwA6sMCS2tQjiQfp/A1vjfROgId934b5D2TSbGq/597pGtk4iCzf2kwLm1tO2W9StlroQhQO+EMcq8Q4jB2crg+Q0Fe4g/aNRiZqePoVzhppExUGCgX1i45xMmvHCnbAkJl7jkpLRytwax8EGKLZkhBsRFTaIhGjIM9QyH/4Tzfr/fVCzAJ0BaC7adx7pE20kYpgpLEbO17vOg1/yJt/2CVfR8Hg3FCh5llRAB8y+AGkVyW2L2eS9C/l3oe82RWA6mbUjYzB9txbRbc/u7ETu++1OF4oITSeZqOgHxoXbhyu876LhvyqwMx6ngnejQR+KQdzdfT09k4DFcPVQYiP0F4H9gCPecAi1N2ywQFJSXMY7C3r8=
+script:
+- bundle install --jobs=3 --retry=3
+- RAILS_ENV=test bundle exec rake db:schema:load --trace
+- bundle exec rake db:test:prepare
+- bundle exec rspec
+after_script:
+- "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
+before_script:
+- cp config/database.travis.yml config/database.yml
+- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
+  > ./cc-test-reporter
+- chmod +x ./cc-test-reporter
+- "./cc-test-reporter before-build"
+deploy:
+  provider: heroku
+  app: tray-imdb
+  api_key:
+    secure: S+jwv843LfAaBLPY7+t/K0ntlZSdwmvKN2YbLBuBolxk9WRdFXlxriVV3YvrFo3JduwgKI7bdMy4qwl/SUG9bw4Zp5GfBorqaBc0xFvAklGmxeYvAUr/3BRSRiobNXosYl9PzT4j/8rRzSNqac4myvX2PlPBw6E/M9TXD2IbH3TuqA9Gpic9PWCNJaw0fdrWAsjzJJFXngqJAxIktOtnqYCqqUgcn8ki2mXrUMxmzB28UAXfNDR2vDXqPFiHHvVpvfkH8/iHGd5F2737sOIg40WBVZvSLn5Lg3zHba2IO6yE4pG1fH8Q8xMkwYIKKl+7Xhs2aOu0AwDg9Ms2ZbeBPoiEJQrZAjpHqaHcCGDKl+1J+tO3+3hzBzR4+IVQqpQ6nOLbNdMAEYPp9kcKTut/lwLuW0d8BWN+uYBqVi5IIN/GjzYWc18jrMpvImrmKBwytv8ZvxlXJtuCwjKe1BxjEcE8Mirppx2+XH3qrWyAFtcZUyEagjjSETkmVx4XyORvzdbDRDDUyn7X3QsYTQPtAw60AifEqZYWJrnIFNOloCv8/6yPXGcwzEMOPMQmLwgh6LCdUbyt+qIVRR++Ou7QasKy4ZmaLSNgAtHQ/8C6SzfettS8m9TIOcCNl/0mZVw/Viir9TRlbWLEQEsDY6QOguZOsmvNtw1sDGnG9bOzEQ8=

@@ -1,7 +1,13 @@
 <div class="container">
-      <% if flash[:notice] %>
+    <% if flash[:notice] %>
         <div class="alert alert-success" role="alert">
             <%= flash[:notice] %>
+        </div>
+        <hr>
+    <% end %>
+    <% if flash[:error] %>
+        <div class="alert alert-danger" role="alert">
+            <%= flash[:error] %>
         </div>
         <hr>
     <% end %>
